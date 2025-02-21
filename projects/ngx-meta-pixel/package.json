@@ -1,6 +1,6 @@
 {
   "name": "ngx-meta-pixel",
-  "version": "17.0.0",
+  "version": "17.0.1",
   "description": "Angular package for providing meta pixel functionality to angular applications",
   "peerDependencies": {
     "@angular/common": "^17.0.0",
@@ -10,5 +10,9 @@
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Szymonexis/ngx-meta-pixel.git"
+  }
 }
