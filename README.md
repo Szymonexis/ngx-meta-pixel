@@ -29,6 +29,25 @@ import { NgxMetaPixelModule } from "ngx-meta-pixel";
 export class AppModule {}
 ```
 
+If you are using standalone components import the `NgxMetaPixelModule` into the `AppComponent` imports:
+
+```typescript
+import { NgxMetaPixelModule } from "ngx-meta-pixel";
+
+@Component({
+  // ...
+  imports: [
+    NgxMetaPixelModule.forRoot({
+      enabled: true,
+      pathToMetaPixelHtml: "assets/meta-pixel.html",
+    }),
+  ],
+})
+export class AppComponent {
+  // ...
+}
+```
+
 ## Usage
 
 ### Changes within the Meta provided Pixel code
