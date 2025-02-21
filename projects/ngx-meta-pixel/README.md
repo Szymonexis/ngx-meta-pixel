@@ -7,6 +7,7 @@ This package enables you to setup Meta Pixel for your Angular application.
 | ngx-meta-pixel version | supported Angular version |
 | ---------------------- | ------------------------- |
 | ^16.0.0                | ^16.0.0                   |
+| ^17.0.0                | ^17.0.0                   |
 
 ## Installation
 
