@@ -59,8 +59,10 @@ export class NgxMetaPixelService {
       return;
     }
 
+    this._verifyPixelPath(pathToMetaPixelHtml);
+
     this._config.enabled = true;
-    this._addPixelScript(pathToMetaPixelHtml);
+    this._addPixelScript(pathToMetaPixelHtml as string);
   }
 
   /**
@@ -233,5 +235,26 @@ export class NgxMetaPixelService {
       return !!pixelScriptElement && !!pixelNoScriptElement;
     }
     return false;
+  }
+
+  /**
+   * @description
+   * Verifies the Pixel file path that was passed into the configuration.
+   * - Checks if Pixel was initialized
+   * @param pathToMetaPixelHtml path to the meta pixel html file
+   */
+  private _verifyPixelPath(
+    pathToMetaPixelHtml: string | undefined | null
+  ): void {
+    if (
+      pathToMetaPixelHtml === null ||
+      pathToMetaPixelHtml === undefined ||
+      typeof pathToMetaPixelHtml !== 'string' ||
+      pathToMetaPixelHtml.length === 0
+    ) {
+      throw Error(
+        'Invalid Facebook Pixel file path. Did you pass the `pathToMetaPixelHtml` property to the `NgxMetaPixelModule.forRoot()` function or did you invoke the `initalize` function properly if no path was provided for the `NgxMetaPixelModule.forRoot()`?'
+      );
+    }
   }
 }

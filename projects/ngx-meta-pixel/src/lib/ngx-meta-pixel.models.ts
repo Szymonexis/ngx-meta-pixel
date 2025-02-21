@@ -14,8 +14,10 @@ export interface NgxMetaPixelConfiguration {
   /**
    * Path to your pixel html code - can be absolute or relative
    * (`http://some.domain/pixel-script.html` or `assets/pixel-script.html`)
+   * 
+   * If no path is provided it must be provided to the `initialize()` method of the NgxMetaPixelService
    */
-  pathToMetaPixelHtml: string;
+  pathToMetaPixelHtml?: string;
 }
 
 export interface NgxMetaPixelEventProperties {

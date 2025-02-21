@@ -4,25 +4,26 @@ import {
   NgModule,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NgxMetaPixelConfiguration } from './ngx-meta-pixel.models';
 import { NgxMetaPixelService } from './ngx-meta-pixel.service';
+import { HttpClientModule } from '@angular/common/http';
 
-@NgModule()
+@NgModule({
+  imports: [CommonModule, HttpClientModule],
+})
 export class NgxMetaPixelModule {
   private static _config: NgxMetaPixelConfiguration | null = null;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly _platformId: object,
-    private readonly _metaPixel: NgxMetaPixelService
+    private readonly _metaPixelService: NgxMetaPixelService
   ) {
-    if (!NgxMetaPixelModule._config) {
-      throw Error(
-        ' not configured correctly. Pass the `pathToMetaPixelHtml` property to the `forRoot()` function'
-      );
-    }
-    if (NgxMetaPixelModule._config.enabled && isPlatformBrowser(_platformId)) {
-      this._metaPixel.initialize();
+    if (
+      NgxMetaPixelModule?._config?.enabled &&
+      isPlatformBrowser(_platformId)
+    ) {
+      this._metaPixelService.initialize();
     }
   }
 
@@ -40,30 +41,10 @@ export class NgxMetaPixelModule {
     config: NgxMetaPixelConfiguration
   ): ModuleWithProviders<NgxMetaPixelModule> {
     this._config = config;
-    const pathToMetaPixelHtml = config.pathToMetaPixelHtml;
-    this._verifyPixelPath(pathToMetaPixelHtml);
 
     return {
       ngModule: NgxMetaPixelModule,
       providers: [NgxMetaPixelService, { provide: 'config', useValue: config }],
     };
-  }
-
-  /**
-   * @description
-   * Verifies the Pixel file path that was passed into the configuration.
-   * - Checks if Pixel was initialized
-   * @param pathToMetaPixelHtml path to the meta pixel html file
-   */
-  private static _verifyPixelPath(pathToMetaPixelHtml: string): void {
-    if (
-      pathToMetaPixelHtml === null ||
-      pathToMetaPixelHtml === undefined ||
-      pathToMetaPixelHtml.length === 0
-    ) {
-      throw Error(
-        'Invalid Facebook Pixel file path. Did you pass the path into the forRoot() function?'
-      );
-    }
   }
 }
