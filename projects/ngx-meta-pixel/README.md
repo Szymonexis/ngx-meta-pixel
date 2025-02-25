@@ -5,9 +5,10 @@ This package enables you to setup Meta Pixel for your Angular application.
 ## Versioning
 
 | ngx-meta-pixel version | supported Angular version |
-| ---------------------- | ------------------------- |
+|------------------------|---------------------------|
 | ^16.0.0                | ^16.0.0                   |
 | ^17.0.0                | ^17.0.0                   |
+| ^18.0.0                | ^18.0.0                   |
 
 ## Installation
 
@@ -20,7 +21,7 @@ import { NgxMetaPixelModule } from "ngx-meta-pixel";
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
     NgxMetaPixelModule.forRoot({ enabled: true, pathToMetaPixelHtml: 'assets/meta-pixel.html'  }),
   ],
   providers: [],
@@ -166,7 +167,7 @@ import { NgxMetaPixelModule } from "ngx-meta-pixel";
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
     NgxMetaPixelModule.forRoot({ enabled: false, pathToMetaPixelHtml: 'assets/meta-pixel.html'  }),
   ],
   providers: [],
