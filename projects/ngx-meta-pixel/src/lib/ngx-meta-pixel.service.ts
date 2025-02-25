@@ -25,6 +25,7 @@ declare const fbq: any;
 @Injectable()
 export class NgxMetaPixelService {
   private readonly _renderer: Renderer2;
+  private readonly _isBrowser;
 
   constructor(
     private readonly _rendererFactory: RendererFactory2,
@@ -35,6 +36,7 @@ export class NgxMetaPixelService {
     @Inject(PLATFORM_ID) private readonly _platformId: object
   ) {
     this._renderer = _rendererFactory.createRenderer(null, null);
+    this._isBrowser = isPlatformBrowser(this._platformId);
 
     if (router) {
       // Log page views after router navigation ends
@@ -85,7 +87,7 @@ export class NgxMetaPixelService {
     eventName: NgxMetaPixelEventName,
     properties?: NgxMetaPixelEventProperties
   ): void {
-    if (!isPlatformBrowser(this._platformId)) {
+    if (!this._isBrowser) {
       return;
     }
 
@@ -112,7 +114,7 @@ export class NgxMetaPixelService {
    * @param properties Optional properties of the event
    */
   trackCustom(eventName: string, properties?: object): void {
-    if (!isPlatformBrowser(this._platformId)) {
+    if (!this._isBrowser) {
       return;
     }
 
@@ -136,7 +138,7 @@ export class NgxMetaPixelService {
    * @param pathToMetaPixelHtml The Facebook Pixel html file path (will be fetched via HttpClient)
    */
   private _addPixelScript(pathToMetaPixelHtml: string): void {
-    if (!isPlatformBrowser(this._platformId)) {
+    if (!this._isBrowser) {
       return;
     }
 
@@ -202,7 +204,7 @@ export class NgxMetaPixelService {
    * Remove Facebook Pixel tracking script from the application
    */
   private _removePixelScript(): void {
-    if (!isPlatformBrowser(this._platformId)) {
+    if (!this._isBrowser) {
       return;
     }
 
@@ -225,7 +227,7 @@ export class NgxMetaPixelService {
    * Checks if the script element is present
    */
   private _isLoaded(): boolean {
-    if (isPlatformBrowser(this._platformId)) {
+    if (this._isBrowser) {
       const pixelScriptElement =
         this._document.getElementById(META_PIXEL_SCRIPT_ID);
       const pixelNoScriptElement = this._document.getElementById(
