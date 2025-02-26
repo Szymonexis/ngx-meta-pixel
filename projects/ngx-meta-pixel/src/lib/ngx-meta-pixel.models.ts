@@ -1,3 +1,5 @@
+import { InjectionToken } from "@angular/core";
+
 /**
  * selector for the `<script></script>` tag that contains the pixel code
  */
@@ -14,7 +16,7 @@ export interface NgxMetaPixelConfiguration {
   /**
    * Path to your pixel html code - can be absolute or relative
    * (`http://some.domain/pixel-script.html` or `assets/pixel-script.html`)
-   * 
+   *
    * If no path is provided it must be provided to the `initialize()` method of the NgxMetaPixelService
    */
   pathToMetaPixelHtml?: string;
@@ -150,3 +152,8 @@ export type NgxMetaPixelEventName =
   | 'SubmitApplication'
   | 'Subscribe'
   | 'ViewContent';
+
+/**
+ * Injection token for the environment provider configuration
+ */
+export const NGX_META_PIXEL_CONFIG = new InjectionToken<NgxMetaPixelConfiguration>('config');
