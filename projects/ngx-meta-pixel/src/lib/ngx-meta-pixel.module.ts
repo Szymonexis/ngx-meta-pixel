@@ -7,7 +7,7 @@ import {
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NgxMetaPixelConfiguration } from './ngx-meta-pixel.models';
 import { NgxMetaPixelService } from './ngx-meta-pixel.service';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({ imports: [CommonModule], providers: [provideHttpClient()] })
 export class NgxMetaPixelModule {
