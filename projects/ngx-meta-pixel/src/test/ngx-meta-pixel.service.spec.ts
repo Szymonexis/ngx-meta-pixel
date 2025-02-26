@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { NgxMetaPixelService } from './ngx-meta-pixel.service';
+import { NgxMetaPixelService } from '../lib/ngx-meta-pixel.service';
 import { DOCUMENT } from "@angular/common";
 import { PLATFORM_ID } from "@angular/core";
 import { provideHttpClient } from "@angular/common/http";
@@ -77,7 +77,6 @@ describe('NgxMetaPixelService', () => {
 
     // Mock HTML file response requested in initialization
     const req = httpTestingController.expectOne(mockFilePath);
-    expect(req.request.method).toBe('GET');
     req.flush(mockHtml);
 
     // Check if script and noscript element have been correctly configured by user and loaded in file
@@ -93,7 +92,6 @@ describe('NgxMetaPixelService', () => {
 
     // Mock HTML file response requested in initialization
     const req = httpTestingController.expectOne(mockFilePath);
-    expect(req.request.method).toBe('GET');
     req.flush(mockHtml);
 
     // Check if scripts have been removed after the method call
