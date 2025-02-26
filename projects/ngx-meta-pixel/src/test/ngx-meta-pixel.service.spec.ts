@@ -4,13 +4,12 @@ import { NgxMetaPixelService } from '../lib/ngx-meta-pixel.service';
 import { DOCUMENT } from "@angular/common";
 import { PLATFORM_ID } from "@angular/core";
 import { provideHttpClient } from "@angular/common/http";
+import { META_PIXEL_NOSCRIPT_ID, META_PIXEL_SCRIPT_ID } from "../lib/ngx-meta-pixel.models";
 
 describe('NgxMetaPixelService', () => {
-  let service: NgxMetaPixelService;
-  let httpTestingController: HttpTestingController;
-  const mockHtml = `
+  const MOCK_HTML = `
     <!-- Meta Pixel Code -->
-    <script id="meta-pixel-script">
+    <script id="${META_PIXEL_SCRIPT_ID}">
       !function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
@@ -31,7 +30,7 @@ describe('NgxMetaPixelService', () => {
         'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', 'TEST_ID');
     </script>
-    <noscript id="meta-pixel-noscript">
+    <noscript id="${META_PIXEL_NOSCRIPT_ID}">
       <img height="1"
            src="https://www.facebook.com/tr?id=TEST_ID&ev=PageView&noscript=1"
            style="display:none"
@@ -40,7 +39,11 @@ describe('NgxMetaPixelService', () => {
     </noscript>
     <!-- End Meta Pixel Code-->
   `;
-  const mockFilePath = 'path/to/meta-pixel.html';
+
+  const MOCK_FILE_PATH = 'path/to/meta-pixel.html';
+
+  let service: NgxMetaPixelService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,7 +54,7 @@ describe('NgxMetaPixelService', () => {
         NgxMetaPixelService,
         {
           provide: 'config',
-          useValue: { pathToMetaPixelHtml: mockFilePath }
+          useValue: { pathToMetaPixelHtml: MOCK_FILE_PATH }
         },
         {
           provide: DOCUMENT,
@@ -70,34 +73,33 @@ describe('NgxMetaPixelService', () => {
 
   afterEach(() => {
     httpTestingController.verify();
+
+    // Cleanup possible leftover scripts to avoid race conditions between tests
+    document.getElementById(META_PIXEL_SCRIPT_ID)?.remove();
+    document.getElementById(META_PIXEL_NOSCRIPT_ID)?.remove();
   });
 
-  it('should initialize and add the meta pixel script to the document', () => {
+  it('should initialize and add the meta pixel scripts to the document', () => {
     service.initialize();
 
     // Mock HTML file response requested in initialization
-    const req = httpTestingController.expectOne(mockFilePath);
-    req.flush(mockHtml);
+    const req = httpTestingController.expectOne(MOCK_FILE_PATH);
+    req.flush(MOCK_HTML);
 
-    // Check if script and noscript element have been correctly configured by user and loaded in file
-    const scriptElement = document.getElementById('meta-pixel-script');
-    const noscriptElement = document.getElementById('meta-pixel-noscript');
-
-    expect(scriptElement).toBeTruthy();
-    expect(noscriptElement).toBeTruthy();
+    expect(document.getElementById(META_PIXEL_SCRIPT_ID)).toBeTruthy();
+    expect(document.getElementById(META_PIXEL_NOSCRIPT_ID)).toBeTruthy();
   });
 
-  it('should remove the meta pixel script from the document', () => {
+  it('should remove the meta pixel scripts from the document', () => {
     service.initialize();
 
     // Mock HTML file response requested in initialization
-    const req = httpTestingController.expectOne(mockFilePath);
-    req.flush(mockHtml);
+    const req = httpTestingController.expectOne(MOCK_FILE_PATH);
+    req.flush(MOCK_HTML);
 
-    // Check if scripts have been removed after the method call
     service.remove();
 
-    expect(document.getElementById('meta-pixel-script')).toBeNull();
-    expect(document.getElementById('meta-pixel-noscript')).toBeNull();
+    expect(document.getElementById(META_PIXEL_SCRIPT_ID)).toBeNull();
+    expect(document.getElementById(META_PIXEL_NOSCRIPT_ID)).toBeNull();
   });
 });
