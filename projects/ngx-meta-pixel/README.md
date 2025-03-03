@@ -21,7 +21,7 @@ npm install --save ngx-meta-pixel
 
 If you are using standalone components, import the service and provide NgxMetaPixel providers with `provideNgxMetaPixel` environment provider function.
 
-In your application-level configuration file (`app.config.js` or `main.ts` in older Angular versions), add the `provideNgxMetaPixel` environment provider:
+In your application-level configuration file (`app.config.ts` or `main.ts` in older Angular versions), add the `provideNgxMetaPixel` environment provider:
 
 ```typescript
 import { provideNgxMetaPixel } from "ngx-meta-pixel";
