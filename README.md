@@ -10,8 +10,45 @@ This package enables you to setup Meta Pixel for your Angular application.
 | ^17.0.0                | ^17.0.0                   |
 | ^18.0.0                | ^18.0.0                   |
 
-## Installation
+## Installing
+Angular version 18.x.x
 
+```bash
+npm install --save ngx-meta-pixel
+```
+
+## Quickstart for standalone applications (Angular >= 15.0.0)
+
+If you are using standalone components, import the service and provide NgxMetaPixel providers with `provideNgxMetaPixel` environment provider function.
+
+In your application-level configuration file (`app.config.js` or `main.ts` in older Angular versions), add the `provideNgxMetaPixel` environment provider:
+
+```typescript
+import { provideNgxMetaPixel } from "ngx-meta-pixel";
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ... other environment providers
+
+    provideNgxMetaPixel({
+      pathToMetaPixelHtml: 'assets/meta-pixel.html'
+    })
+  ],
+};
+```
+
+You need to provide the function with the path of the html file containing the script and noscript tags for configuring through the `pathToMetaPixelHtml` attribute from the `NgxMetaPixelConfiguration` parameter.
+
+```typescript
+export interface NgxMetaPixelConfiguration {
+  enabled?: boolean;
+  pathToMetaPixelHtml?: string;
+}
+```
+
+**Tracking is enabled at application start by default**, if you want to enable it manually, set the `enabled` attribute to false in the configuration parameter. See more about GDPR compliant code in a section below.
+
+## Quickstart for modular applications (Angular <= 15.0.0)
 Add the `NgxMetaPixelModule` the the `AppModule` of your app:
 
 ```typescript
@@ -30,7 +67,9 @@ import { NgxMetaPixelModule } from "ngx-meta-pixel";
 export class AppModule {}
 ```
 
-If you are using standalone components import the `NgxMetaPixelModule` into the `AppComponent` imports:
+## Standalone with module
+
+Using standalone components, you can still import `NgxMetaPixelModule` the old way with Modules:
 
 ```typescript
 import { NgxMetaPixelModule } from "ngx-meta-pixel";
@@ -156,7 +195,7 @@ export class SomeComponent {
 }
 ```
 
-### Flow for GDPR complient applications
+### Flow for GDPR compliant applications
 
 First initialize the `NgxMetaPixelModule` with the `enabled` fprop set to `false`:
 
