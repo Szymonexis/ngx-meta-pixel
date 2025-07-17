@@ -9,10 +9,11 @@ import {
   Injector,
   PLATFORM_ID,
   RendererFactory2,
+  DOCUMENT
 } from '@angular/core';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { NgxMetaPixelService } from './ngx-meta-pixel.service';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 
 /**
