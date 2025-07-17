@@ -1,6 +1,6 @@
 {
   "name": "ngx-meta-pixel",
-  "version": "20.0.0",
+  "version": "20.0.1",
   "description": "Angular package for providing meta pixel functionality to angular applications",
   "peerDependencies": {
     "@angular/common": "^20.0.0",
