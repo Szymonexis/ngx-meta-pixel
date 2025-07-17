@@ -1,6 +1,7 @@
 # NgxMetaPixel
 
-Pipeline:
-- build the package: `npm run build npx-meta-pixel`
-- `npm login`
-- `npm 
+## Credits
+
+Based on the [ngx-multi-pixel](https://www.npmjs.com/package/ngx-multi-pixel) package by [Abhinav Akhil (abhinavakhil)](https://www.npmjs.com/~abhinavakhil)
+
+- [tiagosantini](https://github.com/tiagosantini) for help with v18
