@@ -34,7 +34,7 @@ export class NgxMetaPixelService {
     @Inject(DOCUMENT) private readonly _document: Document,
     @Inject(PLATFORM_ID) private readonly _platformId: object
   ) {
-    this._renderer = _rendererFactory.createRenderer(null, null);
+    this._renderer = this._rendererFactory.createRenderer(null, null);
 
     if (router) {
       // Log page views after router navigation ends
