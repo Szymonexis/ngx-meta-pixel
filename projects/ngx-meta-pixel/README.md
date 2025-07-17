@@ -47,7 +47,7 @@ export interface NgxMetaPixelConfiguration {
 }
 ```
 
-**Tracking is enabled at application start by default**, if you want to enable it manually, set the `enabled` attribute to false in the configuration parameter. See more about GDPR compliant code in a section below.
+**Tracking is disabled at application start by default**, if you want to enable it automatically, set the `enabled` attribute to `true` in the configuration parameter or follow GDPR complience by implementing proper behavior. See more about GDPR compliant code in a section below.
 
 ### Modular applications (Angular < 17.0.0)
 
